@@ -10,6 +10,10 @@ VirtualMachineGUI::VirtualMachineGUI()
     memorymodel_header.append("Value (Hex)");
     memorymodel_header.append("");
     
+    break_button->setEnabled(false);
+    
+    initializeGUI();
+    
     connect(execute_button, SIGNAL(clicked()), this, SLOT(executeProtocol()));
 }
 
@@ -78,8 +82,12 @@ void VirtualMachineGUI::createStatus()
 void VirtualMachineGUI::createExecuteButton()
 {
     controllayout->addWidget(execute_button, 0, 0);
+    controllayout->addWidget(run_button, 0, 1);
+    controllayout->addWidget(break_button, 0, 2);
     
     execute_button->setObjectName("step");
+    run_button->setObjectName("run");
+    break_button->setObjectName("break");
     
     my_controls->setLayout(controllayout);
 }

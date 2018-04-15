@@ -37,44 +37,44 @@ TEST_CASE( "test li with aliases", "[module]" )
 {
     {
         std::string input = R"(.data
-                              x: .word 30
-                              y: .half 15
-                              z: .byte 7
-                        .text
-                        main:
-                              li $0, 1
-                              li $1, 1
-                              li $2, 1
-                              li $3, 1
-                              li $4, 1
-                              li $5, 1
-                              li $6, 1
-                              li $7, 1
-                              li $8, 1
-                              li $9, 1
-                              li $10, 1
-                              li $11, 1
-                              li $12, 1
-                              li $13, 1
-                              li $14, 1
-                              li $15, 1
-                              li $16, 1
-                              li $17, 1
-                              li $18, 1
-                              li $19, 1
-                              li $20, 1
-                              li $21, 1
-                              li $22, 1
-                              li $23, 1
-                              li $24, 1
-                              li $25, 1
-                              li $26, 1
-                              li $27, 1
-                              li $28, 1
-                              li $29, 1
-                              li $30, 1
-                              li $31, 1
-                              )";
+    x: .word 30
+    y: .half 15
+    z: .byte 7
+        .text
+    main:
+        li $0, 1
+        li $1, 1
+        li $2, 1
+        li $3, 1
+        li $4, 1
+        li $5, 1
+        li $6, 1
+        li $7, 1
+        li $8, 1
+        li $9, 1
+        li $10, 1
+        li $11, 1
+        li $12, 1
+        li $13, 1
+        li $14, 1
+        li $15, 1
+        li $16, 1
+        li $17, 1
+        li $18, 1
+        li $19, 1
+        li $20, 1
+        li $21, 1
+        li $22, 1
+        li $23, 1
+        li $24, 1
+        li $25, 1
+        li $26, 1
+        li $27, 1
+        li $28, 1
+        li $29, 1
+        li $30, 1
+        li $31, 1
+        )";
         std::istringstream iss(input);
         
         VirtualMachine parser;
@@ -313,6 +313,36 @@ TEST_CASE("test divs", "[module]")
         li $t0, 15
         div $t1, $t0
         div $t1, $t0
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE("test divus", "[module]")
+{
+    {
+        std::string input = R"(.data
+    x: .word 30
+    y: .half 15
+    z: .byte 7
+        .text
+    main:
+        li $t1, 30
+        li $t0, 15
+        divu $t1, $t0
+        divu $t1, $t0
         )";
         std::istringstream iss(input);
         
@@ -717,6 +747,204 @@ TEST_CASE( "test branches", "[module]" )
         parser.executeProgram();
         parser.executeProgram();
         parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE( "test lw with test file", "[module]" )
+{
+    {
+        std::string input = R"(.data
+        .space 8
+    var1:   .word 1
+    var2:   .word -2
+        
+        .text
+    main:
+        la $t0, var1
+        
+        lw $t1, 0
+        lw $t2, $t0
+        lw $t3, 4($t0)
+        lw $t4, 4(var1)
+        lw $t5, var2
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE( "test addu with test file", "[module]" )
+{
+    {
+        std::string input = R"(.data
+        VALUE = 12
+    var:    .word 31
+        .text
+    main:
+        lw $t0, var
+        addu $t1, $t0, VALUE # 31+12=43
+        addu $t2, $t1, $t0 # 43+31=74
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE( "test add with test file", "[module]" )
+{
+    {
+        std::string input = R"(.data
+        VALUE = -1
+    var:    .word 1
+        .text
+    main:
+        lw $t0, var
+        add $t1, $t0, VALUE
+        add $t2, $t1, $t0
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE( "test sub with test file", "[module]" )
+{
+    {
+        std::string input = R"(.data
+        VALUE = 2
+    var1:   .word 1
+    var2:   .word 12
+    var3:   .word -1
+        .text
+    main:
+        lw $t0, var1
+        lw $t1, var2
+        lw $t2, var3
+        sub $t3, $t0, VALUE # 1-2 = -1
+        sub $t4, $t1, $t0 # 12-1 = 11
+        sub $t5, $t2, VALUE # -1-2 = -3
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE( "test subu with test file", "[module]" )
+{
+    {
+        std::string input = R"(.data
+        VALUE = 2
+    var1:   .word 1
+    var2:   .word 12
+    var3:   .word -1
+        .text
+    main:
+        lw $t0, var1
+        lw $t1, var2
+        lw $t2, var3
+        subu $t3, $t0, VALUE # 1-2 = -1 = 4294967295
+        subu $t4, $t1, $t0 # 12-1 = 11
+        subu $t5, $t2, VALUE # -1-2 = -3 = 4294967293
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE( "test more register aliases", "[module]" )
+{
+    {
+        std::string input = R"(.data
+        VALUE = 2
+    var1:   .word 1
+    var2:   .word 12
+    var3:   .word -1
+        .text
+    main:
+        lw $t0, var1
+        lw $t1, var2
+        lw $t2, var3
+        subu $t3, $t0, VALUE # 1-2 = -1 = 4294967295
+        subu $t4, $t1, $t0 # 12-1 = 11
+        subu $t5, $t2, VALUE # -1-2 = -3 = 4294967293
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.printRegister("$23");
+        parser.printRegister("$24");
+        parser.printRegister("$25");
+        parser.printRegister("$26");
+        parser.printRegister("$27");
+        parser.printRegister("$28");
+        parser.printRegister("$29");
+        parser.printRegister("$30");
+        parser.printRegister("$31");
+        parser.printRegister("$32");
         parser.getStatus();
         
         REQUIRE(parsed == true);

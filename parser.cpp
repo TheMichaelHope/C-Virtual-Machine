@@ -130,11 +130,6 @@ TokenType Parser::taxonomize (TokenList::const_iterator it)
         current_token = STRING;
     }
     
-    else if (it->type() == ERROR)
-    {
-        current_token = ERROR;
-    }
-    
     return current_token;
 }
 
@@ -228,10 +223,6 @@ void Parser::data_entry(States & state, TokenType token, TokenList::const_iterat
         case EOL:
             if (hashprotocol == true)
                 hashprotocol = false;
-            state = dataentry;
-            break;
-            
-        case ERROR:
             state = dataentry;
             break;
             

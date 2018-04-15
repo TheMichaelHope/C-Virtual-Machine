@@ -311,21 +311,6 @@ TEST_CASE( "test multiple lines of .data, with different types, with a constant"
     }
 }
 
-TEST_CASE( "test multiple lines of .data, with different types, with a hex", "[parser]" )
-{
-    {
-        std::string input = ".data\nVALUE = A\n.word B\n.half C\n.half D\n.half E\n.byte 10, 20";
-        std::istringstream iss(input);
-        
-        Parser parser;
-        TokenList tl = tokenize(iss);
-        
-        bool parsed = parser.parse(tl);
-        
-        REQUIRE(parsed == false);
-    }
-}
-
 TEST_CASE( "test labels")
 {
     {
@@ -872,6 +857,38 @@ TEST_CASE( "test the test cases")
     check6:
         nop
         j check6
+        )";
+        std::istringstream iss(input);
+        
+        Parser parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        
+        REQUIRE(parsed == true);
+    }
+}
+
+TEST_CASE( "test sw with a test file")
+{
+    {
+        std::string input = R"(
+        .data
+    r1:     .space 4
+    r2:     .space 12
+    r3:     .space 4
+    var:    .word 7
+        
+        .text
+    main:
+        la $t0, r2
+        lw $t1, var
+        
+        sw $t1, 0
+        sw $t1, $t0
+        sw $t1, 4($t0)
+        sw $t1, 8(r2)
+        sw $t1, r3
         )";
         std::istringstream iss(input);
         

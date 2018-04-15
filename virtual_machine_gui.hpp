@@ -50,6 +50,8 @@ private:
     QTableView* the_gui_registers= new QTableView;
     QTableView* the_gui_memory= new QTableView;
     QPushButton* execute_button = new QPushButton(tr("Step"));
+    QPushButton* run_button = new QPushButton(tr("Run"));
+    QPushButton* break_button = new QPushButton(tr("Break"));
     QLineEdit* the_status = new QLineEdit;
     
     QGridLayout *tablelayout = new QGridLayout;

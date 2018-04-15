@@ -44,6 +44,12 @@ void VirtualMachineGUITest::initTestCase()
     
     auto stepButtonWidget = widget.findChild<QPushButton *>("step");
     QVERIFY2(stepButtonWidget, "Could not find QTableView widget for memory");
+    
+    auto runButtonWidget = widget.findChild<QPushButton *>("run");
+    QVERIFY2(runButtonWidget, "Could not find QTableView widget for memory");
+    
+    auto breakButtonWidget = widget.findChild<QPushButton *>("break");
+    QVERIFY2(breakButtonWidget, "Could not find QTableView widget for memory");
 }
 
 void VirtualMachineGUITest::testStep()
