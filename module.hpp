@@ -18,6 +18,7 @@ public:
     void printRegister(string a_reg);
     void printByteAt(string the_addy); //to_do
     void executeProgram();
+    void runProgram();
     void getStatus();
     string numberToRegister(string a_reg);
     

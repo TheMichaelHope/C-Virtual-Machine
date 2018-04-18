@@ -99,6 +99,11 @@ int main(int argc, char *argv[])
                             the_module.executeProgram();
                         }
                         
+                        else if (command == "run")
+                        {
+                            the_module.runProgram();
+                        }
+                        
                         else if (command == "status")
                         {
                             the_module.getStatus();
