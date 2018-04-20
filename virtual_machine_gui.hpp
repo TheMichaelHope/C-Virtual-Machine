@@ -33,6 +33,7 @@ public:
     
     public slots:
     void executeProtocol();
+    void runProtocol();
     
 protected:
     void createTables();

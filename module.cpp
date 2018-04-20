@@ -665,13 +665,14 @@ there:
 
 void VirtualMachine::runProgram()
 {
-    for (int i = 0; i < the_instructions.size(); i++)
+    int i = 0;
+    while (i <= the_instructions.size())
     {
         auto this_memory = the_memory.begin();
         auto these_labels = the_data_labels.begin();
         auto this_instruction = the_instructions.begin();
         auto this_constant = the_constants.begin();
-    
+        
         
         if (the_registers.at("$pc") > 0)
         {
@@ -1184,8 +1185,14 @@ void VirtualMachine::runProgram()
         if (the_registers.at("$pc") > 22)
             the_registers.at("$pc") = 22;
         
-       // cout << "0x" << hex << setfill('0') << setw(8) << the_registers.at("$pc") << endl;
+        //        run forever
+        //        if (i == the_instructions.size())
+        //        {
+        //            i = the_instructions.size() - 1;
+        //            the_registers.at("$pc") = the_registers.at("$pc");
+        //        }
         
+        i++;
     }
     
 }

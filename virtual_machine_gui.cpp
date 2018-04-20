@@ -14,7 +14,17 @@ VirtualMachineGUI::VirtualMachineGUI()
     
     initializeGUI();
     
+    the_text->setObjectName("text");
+    the_gui_registers->setObjectName("registers");
+    the_gui_memory->setObjectName("memory");
+    the_status->setObjectName("status");
+    execute_button->setObjectName("step");
+    run_button->setObjectName("run");
+    break_button->setObjectName("break");
+    
+    
     connect(execute_button, SIGNAL(clicked()), this, SLOT(executeProtocol()));
+    connect(run_button, SIGNAL(clicked()), this, SLOT(runProtocol()));
 }
 
 void VirtualMachineGUI::initializeGUI()
@@ -52,7 +62,7 @@ void VirtualMachineGUI::createTables()
     the_gui_memory->setColumnWidth(1, 93);
     the_gui_memory->setColumnWidth(2, 98);
     
-    
+    tablelayout->addWidget(the_text, 0, 0);
     tablelayout->addWidget(the_gui_registers, 0, 1);
     tablelayout->addWidget(the_gui_memory, 0, 2);
     
@@ -396,5 +406,12 @@ void VirtualMachineGUI::executeProtocol()
 {
     executeProgram();
     initializeGUI();
+}
+
+void VirtualMachineGUI::runProtocol()
+{
+    runProgram();
+    initializeGUI();
+    break_button->setEnabled(true);
 }
 
