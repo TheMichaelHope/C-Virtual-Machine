@@ -60,9 +60,15 @@ void VirtualMachineGUITest::testStep()
     
     auto stepButtonWidget2 = widget2.findChild<QPushButton *>("step");
     
+    auto runButtonWidget2 = widget2.findChild<QPushButton *>("run");
+    
+    auto breakButtonWidget2 = widget2.findChild<QPushButton *>("break");
+    
     auto statusViewWidget2 = widget2.findChild<QLineEdit *>("status");
     
     QTest::mouseClick(stepButtonWidget2, Qt::MouseButton::LeftButton);
+    QTest::mouseClick(runButtonWidget2, Qt::MouseButton::LeftButton);
+    QTest::mouseClick(breakButtonWidget2, Qt::MouseButton::LeftButton);
     
     QCOMPARE(statusViewWidget2->text(), QString("Ok"));
 }
