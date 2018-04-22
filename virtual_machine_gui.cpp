@@ -25,6 +25,7 @@ VirtualMachineGUI::VirtualMachineGUI()
     
     connect(execute_button, SIGNAL(clicked()), this, SLOT(executeProtocol()));
     connect(run_button, SIGNAL(clicked()), this, SLOT(runProtocol()));
+    connect(break_button, SIGNAL(clicked()), this, SLOT(breakProtocol()));
 }
 
 void VirtualMachineGUI::initializeGUI()
@@ -411,7 +412,13 @@ void VirtualMachineGUI::executeProtocol()
 void VirtualMachineGUI::runProtocol()
 {
     runProgram();
-    initializeGUI();
     break_button->setEnabled(true);
+}
+
+void VirtualMachineGUI::breakProtocol()
+{
+    breakProgram();
+    initializeGUI();
+    break_button->setEnabled(false);
 }
 

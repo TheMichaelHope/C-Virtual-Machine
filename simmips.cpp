@@ -104,6 +104,11 @@ int main(int argc, char *argv[])
                             the_module.runProgram();
                         }
                         
+                        else if (command == "break")
+                        {
+                            the_module.breakProgram();
+                        }
+                        
                         else if (command == "status")
                         {
                             the_module.getStatus();

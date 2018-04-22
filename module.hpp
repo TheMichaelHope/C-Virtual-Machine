@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <array>
+#include <thread>
 #include <vector>
 #include <map>
 #include <unordered_map>
@@ -19,10 +20,15 @@ public:
     void printByteAt(string the_addy); //to_do
     void executeProgram();
     void runProgram();
+    void breakProgram();
+    void spinThread();
     void getStatus();
-    string numberToRegister(string a_reg);
     
+    string numberToRegister(string a_reg);
+    bool running = false;
+    int loop_access = 0;
 private:
+    thread the_thread;
     template< typename T >
     string string_to_hex(T input)
     {

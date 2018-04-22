@@ -34,6 +34,7 @@ public:
     public slots:
     void executeProtocol();
     void runProtocol();
+    void breakProtocol();
     
 protected:
     void createTables();
