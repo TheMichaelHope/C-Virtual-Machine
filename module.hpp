@@ -28,7 +28,9 @@ public:
     bool running = false;
     int loop_access = 0;
 private:
-    thread the_thread;
+    
+    std::thread the_thread;
+    
     template< typename T >
     string string_to_hex(T input)
     {
