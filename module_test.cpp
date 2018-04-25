@@ -193,14 +193,14 @@ TEST_CASE("test adds with a constant", "[module]")
         add $t1, $t0, 1
         )";
         std::istringstream iss(input);
-        
+
         VirtualMachine parser;
         TokenList tl = tokenize(iss);
-        
+
         bool parsed = parser.parse(tl);
         parser.executeProgram();
         parser.getStatus();
-        
+
         REQUIRE(parsed == true);
     }
 }
