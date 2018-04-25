@@ -36,6 +36,7 @@ public:
         int labelADDRESS_SIZE = 0;
         vector<string> storedINFO;
         string registerINFO = ""; //passed to register when I load word
+        int displayedINFO;
     };
     list<MemoryType> the_memory;
     

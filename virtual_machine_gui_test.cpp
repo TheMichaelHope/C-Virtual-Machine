@@ -17,12 +17,14 @@ class VirtualMachineGUITest : public QObject {
     private slots:
     
     void initTestCase();
-    void testStep();
+    void testRun();
+    void testBreak();
     
 private:
     
     VirtualMachineGUI widget;
     VirtualMachineGUI widget2;
+    VirtualMachineGUI widget3;
 };
 
 // this section just verifies the object names and API
@@ -52,25 +54,37 @@ void VirtualMachineGUITest::initTestCase()
     QVERIFY2(breakButtonWidget, "Could not find QTableView widget for memory");
 }
 
-void VirtualMachineGUITest::testStep()
+void VirtualMachineGUITest::testRun()
 {
-    widget2.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test10.asm"));
+    widget2.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test17.asm"));
 
     QApplication::setActiveWindow(&widget2);
 
     auto stepButtonWidget2 = widget2.findChild<QPushButton *>("step");
 
-    auto runButtonWidget2 = widget2.findChild<QPushButton *>("run");
-
-    auto breakButtonWidget2 = widget2.findChild<QPushButton *>("break");
-
     auto statusViewWidget2 = widget2.findChild<QLineEdit *>("status");
 
     QTest::mouseClick(stepButtonWidget2, Qt::MouseButton::LeftButton);
-    QTest::mouseClick(runButtonWidget2, Qt::MouseButton::LeftButton);
-    QTest::mouseClick(breakButtonWidget2, Qt::MouseButton::LeftButton);
 
     QCOMPARE(statusViewWidget2->text(), QString("Ok"));
+}
+
+void VirtualMachineGUITest::testBreak()
+{
+//    widget3.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test17.asm"));
+//
+//    QApplication::setActiveWindow(&widget3);
+//
+//    auto breakButtonWidget3 = widget3.findChild<QPushButton *>("break");
+//
+//    auto runButtonWidget3 = widget3.findChild<QPushButton *>("run");
+//
+    auto statusViewWidget3 = widget3.findChild<QLineEdit *>("status");
+//
+//    QTest::mouseClick(runButtonWidget3, Qt::MouseButton::LeftButton);
+//    QTest::mouseClick(breakButtonWidget3, Qt::MouseButton::LeftButton);
+    
+    QCOMPARE(statusViewWidget3->text(), QString("Ok"));
 }
 
 

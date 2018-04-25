@@ -261,15 +261,29 @@ there:
     }
     else if (this_instruction->INSTRUCTIONNAME == "sw") //DO THIS
     {
-        do
+        if (isalpha(*this_instruction->IMMEDIATEVALUE.c_str()))
         {
-            this_memory++;
+            this_memory->displayedINFO = the_registers.at(numberToRegister(this_instruction->RD));
+            
+            the_registers.at("$pc")++;
         }
-        while (stoi(this_instruction->IMMEDIATEVALUE) != this_memory->labelADDRESS);
-        
-        this_memory->storedINFO[this_memory->labelADDRESS] = to_string(the_registers.at(numberToRegister(this_instruction->RD)));
-        
-        the_registers.at("$pc")++;
+        else if (this_instruction->IMMEDIATEVALUE.substr(1,1) != "(")
+        {
+            do
+            {
+                this_memory++;
+            }
+            while (stoi(this_instruction->IMMEDIATEVALUE) != this_memory->labelADDRESS);
+            
+            this_memory->displayedINFO = the_registers.at(numberToRegister(this_instruction->RD));
+            
+            the_registers.at("$pc")++;
+        }
+        else
+        {
+            this_memory->displayedINFO = the_registers.at(numberToRegister(this_instruction->RD));
+            the_registers.at("$pc")++;
+        }
         
     }
     else if (this_instruction->INSTRUCTIONNAME == "move")
