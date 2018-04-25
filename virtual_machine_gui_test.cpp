@@ -24,9 +24,6 @@ class VirtualMachineGUITest : public QObject {
 private:
     
     VirtualMachineGUI widget;
-    VirtualMachineGUI widget2;
-    VirtualMachineGUI widget3;
-    VirtualMachineGUI widget4;
 };
 
 // this section just verifies the object names and API
@@ -58,43 +55,27 @@ void VirtualMachineGUITest::initTestCase()
 
 void VirtualMachineGUITest::testStep()
 {
-    widget2.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test17.asm"));
+    widget.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test17.asm"));
 
-    QApplication::setActiveWindow(&widget2);
+    QApplication::setActiveWindow(&widget);
 
-    auto stepButtonWidget2 = widget2.findChild<QPushButton *>("step");
+    auto stepButtonWidget2 = widget.findChild<QPushButton *>("step");
 
-    auto statusViewWidget2 = widget2.findChild<QLineEdit *>("status");
+    auto statusViewWidget2 = widget.findChild<QLineEdit *>("status");
 
     QTest::mouseClick(stepButtonWidget2, Qt::MouseButton::LeftButton);
 
     QCOMPARE(statusViewWidget2->text(), QString("Ok"));
 }
 
-//void VirtualMachineGUITest::testRun()
-//{
-//    widget2.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test17.asm"));
-//
-//    QApplication::setActiveWindow(&widget2);
-//
-//    auto runButtonWidget2 = widget2.findChild<QPushButton *>("run");
-//    auto stepButtonWidget2 = widget2.findChild<QPushButton *>("step");
-//    auto statusViewWidget2 = widget2.findChild<QLineEdit *>("status");
-//
-//    QTest::mouseClick(runButtonWidget2, Qt::MouseButton::LeftButton);
-//    QTest::mouseClick(stepButtonWidget2, Qt::MouseButton::LeftButton);
-//
-//    QCOMPARE(statusViewWidget2->text(), QString("Ok"));
-//}
-
 void VirtualMachineGUITest::testBreak()
 {
-    widget4.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test17.asm"));
+    //widget.load(QString::fromStdString(TEST_FILE_DIR + "/vm/test17.asm"));
 
-    QApplication::setActiveWindow(&widget4);
+    QApplication::setActiveWindow(&widget);
     
-    auto breakButtonWidget4 = widget4.findChild<QPushButton *>("break");
-    auto statusViewWidget4 = widget4.findChild<QLineEdit *>("status");
+    auto breakButtonWidget4 = widget.findChild<QPushButton *>("break");
+    auto statusViewWidget4 = widget.findChild<QLineEdit *>("status");
     
     QTest::mouseClick(breakButtonWidget4, Qt::MouseButton::LeftButton);
     
