@@ -27,6 +27,13 @@ TEST_CASE( "test li", "[module]" )
         parser.executeProgram();
         parser.printRegister("$t2");
         parser.printByteAt("0x00000001");
+        parser.printByteAt("0x00000004");
+        parser.printByteAt("0x00000005");
+        parser.printByteAt("0x00000008");
+        parser.printByteAt("0x0000000c");
+        parser.printByteAt("0x0000000d");
+        parser.printByteAt("0x0000000e");
+        parser.printByteAt("0x0000000f");
         parser.getStatus();
         
         REQUIRE(parsed == true);
