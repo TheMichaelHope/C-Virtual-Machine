@@ -19,12 +19,9 @@
 
 using namespace std;
 
-//pass in the tokens and parse them successfully
 class Parser
 {
 public:
-    
-    //data structures for the VM
     typedef unordered_map<string, int32_t> RegisterType;
     RegisterType the_registers;
     
@@ -92,21 +89,14 @@ public:
     enum States {startparsing, dataentry, textentry, MOVEinstruction, ARTHinstruction, LOGinstruction, CTRinstruction, constant, dotword, dothalf, dotbyte, dotspace, dotascii, dotasciiz, END, ERR};
     
     void data_or_text(States & state, TokenType token, TokenList::const_iterator it);
-    
     void data_entry(States & state, TokenType token, TokenList::const_iterator it);
     void text_entry(States & state, TokenType token, TokenList::const_iterator it);
-    
-    //.text instructions
     void MOVE_instruction(States & state, TokenType token, TokenList::const_iterator it);
     void MIPS_instruction(States & state, TokenType token, TokenList::const_iterator it);
     void ARTH_instruction(States & state, TokenType token, TokenList::const_iterator it);
     void LOG_instruction(States & state, TokenType token, TokenList::const_iterator it);
     void CTR_instruction(States & state, TokenType token, TokenList::const_iterator it);
-    
-    //constant
     void data_constant(States & state, TokenType token, TokenList::const_iterator it);
-    
-    //.data instructions
     void dot_word(States & state, TokenType token, TokenList::const_iterator it);
     void dot_half(States & state, TokenType token, TokenList::const_iterator it);
     void dot_byte(States & state, TokenType token, TokenList::const_iterator it);
@@ -156,7 +146,6 @@ private:
                 binary = "0"+binary;
             mask <<= 1;
         }
-        //return stoul(binary);
         return binary;
     }
     
@@ -174,10 +163,8 @@ private:
                 binary = "0"+binary;
             mask <<= 1;
         }
-        //return stoul(binary);
         return binary;
     }
 };
 
 #endif
-

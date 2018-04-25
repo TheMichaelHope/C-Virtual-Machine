@@ -1012,4 +1012,3 @@ TEST_CASE( "test more register aliases", "[module]" )
         REQUIRE(parsed == true);
     }
 }
-

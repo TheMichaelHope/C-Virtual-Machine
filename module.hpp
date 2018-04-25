@@ -101,7 +101,6 @@ private:
                 binary = "0"+binary;
             mask <<= 1;
         }
-        //return stoul(binary);
         return binary;
     }
     string string_to_bin(int input)
@@ -118,10 +117,8 @@ private:
                 binary = "0"+binary;
             mask <<= 1;
         }
-        //return stoul(binary);
         return binary;
     }
 };
-
 
 #endif

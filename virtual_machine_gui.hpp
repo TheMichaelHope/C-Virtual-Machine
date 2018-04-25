@@ -47,7 +47,6 @@ private:
     QGroupBox* my_controls = new QGroupBox;
     QGroupBox* my_status = new QGroupBox;
     QGroupBox* my_tables = new QGroupBox;
-    
     QPlainTextEdit* the_text = new QPlainTextEdit;
     QTableView* the_gui_registers= new QTableView;
     QTableView* the_gui_memory= new QTableView;
@@ -55,17 +54,12 @@ private:
     QPushButton* run_button = new QPushButton(tr("Run"));
     QPushButton* break_button = new QPushButton(tr("Break"));
     QLineEdit* the_status = new QLineEdit;
-    
     QGridLayout *tablelayout = new QGridLayout;
-    
     QStandardItemModel the_register_model;
     QStandardItemModel the_memory_model;
-    
     QStringList regmodel_header;
     QStringList memorymodel_header;
-    
     QLabel* status_label;
-    
     QVBoxLayout *mainview = new QVBoxLayout;
     QGridLayout *statuslayout = new QGridLayout;
     QGridLayout *controllayout = new QGridLayout;
@@ -105,7 +99,6 @@ private:
     QStandardItem* ritem320;
     QStandardItem* ritem330;
     QStandardItem* ritem340;
-    
     QStandardItem* ritem01;
     QStandardItem* ritem11;
     QStandardItem* ritem21;
@@ -141,7 +134,6 @@ private:
     QStandardItem* ritem321;
     QStandardItem* ritem331;
     QStandardItem* ritem341;
-    
     QStandardItem* ritem02;
     QStandardItem* ritem12;
     QStandardItem* ritem22;
@@ -177,7 +169,6 @@ private:
     QStandardItem* ritem322;
     QStandardItem* ritem332;
     QStandardItem* ritem342;
-    
     QStandardItem* mitem00;
     QStandardItem* mitem10;
     QStandardItem* mitem20;
@@ -213,7 +204,6 @@ private:
     QStandardItem* mitem320;
     QStandardItem* mitem330;
     QStandardItem* mitem340;
-    
     QStandardItem* mitem01;
     QStandardItem* mitem11;
     QStandardItem* mitem21;
@@ -249,7 +239,6 @@ private:
     QStandardItem* mitem321;
     QStandardItem* mitem331;
     QStandardItem* mitem341;
-    
     QStandardItem* mitem02;
     QStandardItem* mitem12;
     QStandardItem* mitem22;
@@ -287,6 +276,4 @@ private:
     QStandardItem* mitem342;
 };
 
-
 #endif
-

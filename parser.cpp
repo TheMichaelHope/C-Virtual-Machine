@@ -11,10 +11,8 @@ bool Parser::parse(TokenList &tokens)
     
     while ((the_state != ERR) && (the_state != END) && it != tokens.end())
     {
-        // classify input
         TokenType new_token = taxonomize(it);
         
-        // next state logic
         switch(the_state)
         {
             case startparsing:
@@ -688,28 +686,6 @@ void Parser::LOG_instruction(States & state, TokenType token, TokenList::const_i
     switch(token)
     {
         case STRING:
-            //            if (it->value() == "#")
-            //            {
-            //                hashprotocol = true;
-            //                if (parenprotocol == true && parencount != 0)
-            //                    state = ERR;
-            //                else
-            //                {
-            //                    sepcount = 0;
-            //                    the_instructions.emplace_back(current_instruction);
-            //                    if (storageprotocol > 0) current_label.ADDRESS = storageprotocol;
-            //                    else current_label.ADDRESS = 0;
-            //
-            //                    current_label.ADDRESS_SIZE = 4;
-            //
-            //                    current_memory.labelADDRESS = current_label.ADDRESS;
-            //                    current_memory.labelADDRESS_SIZE = current_label.ADDRESS_SIZE;
-            //                    the_memory.emplace_back(current_memory);
-            //                    state = textentry;
-            //                    immediateprotocol = false;
-            //                    break;
-            //                }
-            //            }
             if (it->value().substr(0,1) == "$")
             {
                 if (sepcount == 0)
@@ -781,28 +757,6 @@ void Parser::CTR_instruction(States & state, TokenType token, TokenList::const_i
     switch(token)
     {
         case STRING:
-            //            if (it->value() == "#")
-            //            {
-            //                hashprotocol = true;
-            //                if (parenprotocol == true && parencount != 0)
-            //                    state = ERR;
-            //                else
-            //                {
-            //                    sepcount = 0;
-            //                    the_instructions.emplace_back(current_instruction);
-            //                    if (storageprotocol > 0) current_label.ADDRESS = storageprotocol;
-            //                    else current_label.ADDRESS = 0;
-            //
-            //                    current_label.ADDRESS_SIZE = 4;
-            //
-            //                    current_memory.labelADDRESS = current_label.ADDRESS;
-            //                    current_memory.labelADDRESS_SIZE = current_label.ADDRESS_SIZE;
-            //                    the_memory.emplace_back(current_memory);
-            //                    state = textentry;
-            //                    immediateprotocol = false;
-            //                    break;
-            //                }
-            //            }
             if (jump == true)
             {
                 if (isalpha(*it->value().c_str()) && sepcount == 0)
@@ -886,28 +840,6 @@ void Parser::data_constant(States & state, TokenType token, TokenList::const_ite
             break;
             
         case STRING:
-            //            if (it->value() == "#")
-            //            {
-            //                hashprotocol = true;
-            //                if (parenprotocol == true && parencount != 0)
-            //                    state = ERR;
-            //                else
-            //                {
-            //                    sepcount = 0;
-            //                    the_instructions.emplace_back(current_instruction);
-            //                    if (storageprotocol > 0) current_label.ADDRESS = storageprotocol;
-            //                    else current_label.ADDRESS = 0;
-            //
-            //                    current_label.ADDRESS_SIZE = 4;
-            //
-            //                    current_memory.labelADDRESS = current_label.ADDRESS;
-            //                    current_memory.labelADDRESS_SIZE = current_label.ADDRESS_SIZE;
-            //                    the_memory.emplace_back(current_memory);
-            //                    state = dataentry;
-            //                    immediateprotocol = false;
-            //                    break;
-            //                }
-            //            }
             if (it->value().substr(0, 1) == "+" || it->value().substr(0, 1) == "-" || it->value().substr(0, 1) == "{" || it->value().substr(0, 1) == "}")
             {
                 if (it->value().substr(0, 1) == "-")
@@ -1105,50 +1037,6 @@ void Parser::dot_half(States & state, TokenType token, TokenList::const_iterator
     {
         case STRING:
             stringprotocol = true;
-            //            if (it->value() == "#")
-            //            {
-            //                hashprotocol = true;
-            //                if (parenprotocol == true && parencount != 0)
-            //                    state = ERR;
-            //                else
-            //                {
-            //                    sepcount = 0;
-            //                    the_instructions.emplace_back(current_instruction);
-            //                    if (storageprotocol > 0) current_label.ADDRESS = storageprotocol;
-            //                    else current_label.ADDRESS = 0;
-            //
-            //                    current_label.ADDRESS_SIZE = 4;
-            //
-            //                    current_memory.labelADDRESS = current_label.ADDRESS;
-            //                    current_memory.labelADDRESS_SIZE = current_label.ADDRESS_SIZE;
-            //                    the_memory.emplace_back(current_memory);
-            //                    state = dataentry;
-            //                    immediateprotocol = false;
-            //                    break;
-            //                }
-            //            }
-            //            if (it->value().substr(0, 1) == "+" || it->value().substr(0, 1) == "-")
-            //            {
-            //                sepprotocol = false;
-            //
-            //                if (storageprotocol > 0) current_label.ADDRESS = storageprotocol;
-            //                else current_label.ADDRESS = 0;
-            //
-            //                current_label.ADDRESS_SIZE = 2;
-            //
-            //                current_memory.labelADDRESS = current_label.ADDRESS;
-            //                current_memory.labelADDRESS_SIZE = current_label.ADDRESS_SIZE;
-            //
-            //                current_variable_in_hex = string_to_hex(it->value());
-            //
-            //                current_memory.storedINFO.emplace_back(current_variable_in_hex.substr(8,2));
-            //                current_memory.storedINFO.emplace_back(current_variable_in_hex.substr(6,2));
-            //
-            //                current_memory.registerINFO = it->value();
-            //
-            //                state = dothalf;
-            //            }
-            
             if (isdigit(*it->value().c_str()) && stoi(it->value().c_str()) < 32768)
             {
                 sepprotocol = false;
@@ -1213,52 +1101,6 @@ void Parser::dot_byte(States & state, TokenType token, TokenList::const_iterator
     switch(token)
     {
         case STRING:
-            //            if (it->value() == "#")
-            //            {
-            //                hashprotocol = true;
-            //                if (parenprotocol == true && parencount != 0)
-            //                    state = ERR;
-            //                else
-            //                {
-            //                    sepcount = 0;
-            //                    the_instructions.emplace_back(current_instruction);
-            //                    if (storageprotocol > 0) current_label.ADDRESS = storageprotocol;
-            //                    else current_label.ADDRESS = 0;
-            //
-            //                    current_label.ADDRESS_SIZE = 4;
-            //
-            //                    current_memory.labelADDRESS = current_label.ADDRESS;
-            //                    current_memory.labelADDRESS_SIZE = current_label.ADDRESS_SIZE;
-            //                    the_memory.emplace_back(current_memory);
-            //                    state = dataentry;
-            //                    immediateprotocol = false;
-            //                    break;
-            //                }
-            //            }
-            //            stringprotocol = true;
-            //
-            //            if (it->value().substr(0, 1) == "+" || it->value().substr(0, 1) == "-")
-            //            {
-            //                sepprotocol = false;
-            //
-            //                if (storageprotocol > 0) current_label.ADDRESS = storageprotocol;
-            //                else current_label.ADDRESS = 0;
-            //
-            //                current_label.ADDRESS_SIZE = 1;
-            //
-            //                current_memory.labelADDRESS = current_label.ADDRESS;
-            //                current_memory.labelADDRESS_SIZE = current_label.ADDRESS_SIZE;
-            //
-            //                current_variable_in_hex = string_to_hex(it->value());
-            //
-            //
-            //                current_memory.storedINFO.emplace_back(current_variable_in_hex.substr(8,2));
-            //
-            //                current_memory.registerINFO = it->value();
-            //
-            //                state = dotbyte;
-            //            }
-            
             if (isdigit(*it->value().c_str()) && stoi(it->value().c_str()) < 255)
             {
                 sepprotocol = false;

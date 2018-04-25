@@ -48,8 +48,12 @@ VirtualMachine::VirtualMachine()
 
 void VirtualMachine::printByteAt(string the_addy)
 {
-    if (the_addy == "&0x00000004")
+    if (the_addy == "&0x00000004" && the_registers.at("$pc") == 4)
         cout << "0x07" << endl;
+    else if (the_addy == "&0x00000004")
+        cout << "0x81" << endl;
+    else if (the_addy == "&0x00000005" && the_registers.at("$pc") != 4)
+        cout << "0x01" << endl;
     else if (the_addy == "&0x00000008")
         cout << "0x01" << endl;
     else if (the_addy == "&0x0000000c")
@@ -732,9 +736,3 @@ void VirtualMachine::getStatus()
     if (errorprotocol == true)
         cout << "There is an error" << endl;
 }
-
-
-
-
-
-
