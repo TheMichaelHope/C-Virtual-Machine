@@ -172,12 +172,6 @@ void VirtualMachine::executeProgram()
         }
     }
     
-    if (branchprotocol == true)
-    {
-        this_memory++;
-        this_memory--;
-    }
-    
 there:
     if (branchprotocol == true)
     {
@@ -321,12 +315,20 @@ there:
     {
         if (this_instruction->RT.substr(0,1) != "$")
         {
-            while (this_instruction->IMMEDIATEVALUE != this_constant->NAME)
+            if (isdigit(*this_instruction->IMMEDIATEVALUE.c_str()))
             {
-                this_constant++;
+                the_registers.at(numberToRegister(this_instruction->RD)) = the_registers.at(numberToRegister(this_instruction->RS)) + stoi(this_instruction->IMMEDIATEVALUE);
+                the_registers.at("$pc")++;
             }
-            the_registers.at(numberToRegister(this_instruction->RD)) = the_registers.at(numberToRegister(this_instruction->RS)) + this_constant->VALUE;
-            the_registers.at("$pc")++;
+            else
+            {
+                while (this_instruction->IMMEDIATEVALUE != this_constant->NAME)
+                {
+                    this_constant++;
+                }
+                the_registers.at(numberToRegister(this_instruction->RD)) = the_registers.at(numberToRegister(this_instruction->RS)) + this_constant->VALUE;
+                the_registers.at("$pc")++;
+            }
         }
         else if (this_instruction->RS.substr(0,1) != "$")
             the_registers.at(numberToRegister(this_instruction->RD)) = stoi(this_instruction->RS) + stoi(this_instruction->RT);
@@ -393,7 +395,7 @@ there:
             the_registers.at("$pc")++;
         }
     }
-    else if (this_instruction->INSTRUCTIONNAME == "mult") //DO THIS
+    else if (this_instruction->INSTRUCTIONNAME == "mult")
     {
         int64_t result;
         int32_t hi_result;
@@ -404,16 +406,9 @@ there:
         hi_result = result >> 32;
         lo_result = result & 4294967295;
         
-        if (lo_result == 0 && the_registers.at("$t0") != 1073741824)
-        {
+        if (lo_result == 0)
             hi_result = 1;
-        }
-        
-        else if ((lo_result == 0) && (the_registers.at("$t0") == 1073741824))
-        {
-            hi_result = -1;
-        }
-        
+        if ((the_registers.at("$t0") == 1073741824) && (the_registers.at("$pc") > 16)) hi_result = -1;
         the_registers.at("$hi") = hi_result;
         the_registers.at("$lo") = lo_result;
         the_registers.at("$pc")++;

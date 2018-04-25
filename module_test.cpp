@@ -181,6 +181,30 @@ TEST_CASE("test adds", "[module]")
     }
 }
 
+TEST_CASE("test adds with a constant", "[module]")
+{
+    {
+        std::string input = R"(.data
+    x: .word 30
+    y: .half 15
+    z: .byte 7
+        .text
+    main:
+        add $t1, $t0, 1
+        )";
+        std::istringstream iss(input);
+        
+        VirtualMachine parser;
+        TokenList tl = tokenize(iss);
+        
+        bool parsed = parser.parse(tl);
+        parser.executeProgram();
+        parser.getStatus();
+        
+        REQUIRE(parsed == true);
+    }
+}
+
 TEST_CASE("test addus", "[module]")
 {
     {
