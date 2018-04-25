@@ -404,12 +404,12 @@ there:
         hi_result = result >> 32;
         lo_result = result & 4294967295;
         
-        if (lo_result == 0 & the_registers.at("$t0") != 1073741824)
+        if (lo_result == 0 && the_registers.at("$t0") != 1073741824)
         {
             hi_result = 1;
         }
         
-        else if (lo_result == 0 & the_registers.at("$t0") == 1073741824)
+        else if ((lo_result == 0) && (the_registers.at("$t0") == 1073741824))
         {
             hi_result = -1;
         }
