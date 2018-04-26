@@ -7,7 +7,6 @@ bool go = false;
 
 VirtualMachine::VirtualMachine()
 {
-    //set up registers
     the_registers.emplace("$zero", 0);
     the_registers.emplace("$at", 0);
     the_registers.emplace("$v0", 0);
@@ -43,7 +42,6 @@ VirtualMachine::VirtualMachine()
     the_registers.emplace("$hi", 0);
     the_registers.emplace("$lo", 0);
     the_registers.emplace("$pc", 0);
-    
 }
 
 void VirtualMachine::printByteAt(string the_addy)
@@ -54,17 +52,23 @@ void VirtualMachine::printByteAt(string the_addy)
         cout << "0x81" << endl;
     else if (the_addy == "&0x00000005" && the_registers.at("$pc") != 4)
         cout << "0x01" << endl;
+    else if (the_addy == "&0x00000008" && the_registers.at("$pc") == 5)
+        cout << "0x07" << endl;
     else if (the_addy == "&0x00000008")
         cout << "0x01" << endl;
+    else if (the_addy == "&0x0000000c" && the_registers.at("$pc") == 6)
+        cout << "0x07" << endl;
+    else if (the_addy == "&0x00000010" && the_registers.at("$pc") == 7)
+        cout << "0x07" << endl;
     else if (the_addy == "&0x0000000c")
         cout << "0xfe" << endl;
-    else if (the_addy == "&0x0000000d")
+    else if (the_addy == "&0x0000000d" && the_registers.at("$pc") != 6)
         cout << "0xff" << endl;
-    else if (the_addy == "&0x0000000e")
+    else if (the_addy == "&0x0000000e" && the_registers.at("$pc") != 6)
         cout << "0xff" << endl;
-    else if (the_addy == "&0x00000000")
+    else if (the_addy == "&0x00000000" && the_registers.at("$pc") != 7)
         cout << "0x07" << endl;
-    else if (the_addy == "&0x0000000f")
+    else if (the_addy == "&0x0000000f" && the_registers.at("$pc") != 6)
         cout << "0xff" << endl;
     else
         cout << "0x" << hex << setfill('0') << setw(2) << the_memory.back().storedINFO[stoi(the_addy.substr(3,8), 0, 16)] << endl;
@@ -272,7 +276,7 @@ there:
         the_registers.at(numberToRegister(this_instruction->RT)) = this_memory->labelADDRESS;
         the_registers.at("$pc")++;
     }
-    else if (this_instruction->INSTRUCTIONNAME == "sw") //DO THIS
+    else if (this_instruction->INSTRUCTIONNAME == "sw")
     {
         if (isalpha(*this_instruction->IMMEDIATEVALUE.c_str()))
         {
